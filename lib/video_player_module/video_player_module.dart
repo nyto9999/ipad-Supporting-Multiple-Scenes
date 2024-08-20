@@ -14,7 +14,7 @@ class _VideoPlayerModuleState extends State<VideoPlayerModule> {
   late VideoPlayerController _controller;
   late final ValueNotifier<bool> _isInitialized;
   late final ValueNotifier<String?> _errorMessage;
-
+   
   final double _size = 500.0;
   final double _aspectRatio = (16 / 9);
   bool _isFullScreen = false;

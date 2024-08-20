@@ -63,9 +63,9 @@ class _VideoControlPanelState extends State<VideoControlPanel> {
         children: [
           _buildProgressBar(context),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _buildPlayAndPauseButton(),
+              const Spacer(),
               _buildSpeedButtons(),
               _buildFullScreenIcon(),
             ],
@@ -154,23 +154,29 @@ class _VideoControlPanelState extends State<VideoControlPanel> {
   }
 
   Widget _buildSpeedButtons() {
-    return Row(
-      children: [0.5, 1.0, 1.5, 2.0].map((userInput) {
-        return ValueListenableBuilder<double>(
-          valueListenable: _playbackSpeed,
-          builder: (context, value, child) {
-            return TextButton(
-              onPressed: () => widget.controller.setPlaybackSpeed(userInput),
-              child: Text(
-                '${userInput}x',
-                style: TextStyle(
-                  color: value == userInput ? Colors.blue : Colors.white,
-                ),
-              ),
-            );
-          },
-        );
-      }).toList(),
+    return PopupMenuButton<double>(
+      icon: const Icon(Icons.speed, color: Colors.white),
+      onSelected: (speed) {
+        widget.controller.setPlaybackSpeed(speed);
+      },
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 0.5,
+          child: Text('0.5x'),
+        ),
+        const PopupMenuItem(
+          value: 1.0,
+          child: Text('1.0x'),
+        ),
+        const PopupMenuItem(
+          value: 1.5,
+          child: Text('1.5x'),
+        ),
+        const PopupMenuItem(
+          value: 2.0,
+          child: Text('2.0x'),
+        ),
+      ],
     );
   }
 }
